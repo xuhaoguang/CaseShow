@@ -1,0 +1,5 @@
+target:
+	g++ ./split.cpp /www/web/default/nlp-lib/libNLPIR.so -lpthread -Wall -Wunused -O3 -DOS_LINUX 
+	#g++ extract.cpp /www/web/default/docextract-lib/libDocExtractor.so -Wall -Wunused -O3 -DOS_LINUX
+clean:
+	rm a.out
