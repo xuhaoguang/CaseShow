@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CaseShow 法务服务系统</title>
+
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -59,6 +60,9 @@
     </div>
 </nav>
 
+<script>
+    var test = "Harvey";
+</script>
 <?php
     function httpPost($url,$params){
         $postData = '';
@@ -97,28 +101,138 @@
         </form>
     </div>
 
+    <?php
+        $params = array(
+            "name" => $_POST["contents"]
+        );
+    
+        $ResArray = json_decode(httpPost("http://localhost/split.php", $params), true);
+        //echo httpPost("http://localhost/split.php", $params);
+        //print_r($ResArray);
+
+        $fenciResArray = $ResArray["fenciRes"]; 
+        $fenciResStr = "";
+        
+        for($i = 0; $i < count($fenciResArray["words"]); $i++){
+            if($fenciResArray["words"][$i] != "\r"){
+                $fenciResStr = $fenciResStr . addslashes($fenciResArray["words"][$i]) . "/". addslashes($fenciResArray["type"][$i]) . "  "; 
+            }  
+        }
+
+    ?>
+        
+    <script type="text/javascript">
+        function show_fenciRes(){
+            document.getElementById("tagscloud").style.display="none";
+            document.getElementById("textarearesult").style.display="block";
+            document.getElementById("textarearesult").value="<?php echo addslashes($fenciResStr);?>";
+            //document.getElementById("nlptool-select-fenci").style.background="#5a5a5a";
+            //document.getElementById("nlptool-select-fenci-mb").style.background="#5a5a5a";
+            <?php $graph_show_name = "fenci"; ?>
+        }
+
+        function show_keywordsRes(){
+            document.getElementById("tagscloud").style.display="none";
+            document.getElementById("textarearesult").style.display="block";
+            document.getElementById("textarearesult").value="<?php echo str_replace('#', '  ', $ResArray["keywordsRes"]); ?>";
+            document.getElementById("textarearesult-mb").value="<?php echo str_replace('#', '  ', $ResArray["keywordsRes"]); ?>";
+            //document.getElementById("nlptool-select-kewwords").style.background="#5a5a5a";
+            //document.getElementById("nlptool-select-kewwords-mb").style.background="#5a5a5a";
+            <?php $graph_show_name = "keywords"; ?>
+        }
+        
+        function show_newwordsRes(){
+            document.getElementById("tagscloud").style.display="none";
+            document.getElementById("textarearesult").style.display="block";
+            document.getElementById("textarearesult").value="<?php echo str_replace('#', '  ', $ResArray["newwordsRes"]); ?>";
+            document.getElementById("textarearesult-mb").value="<?php echo str_replace('#', '  ', $ResArray["newwordsRes"]); ?>";
+            //document.getElementById("nlptool-select-newwords").style.background="#5a5a5a";
+            //document.getElementById("nlptool-select-newwords-mb").style.background="#5a5a5a";
+            <?php $graph_show_name = "newwords"; ?>
+        }
+        
+        function show_summaryRes(){
+            document.getElementById("tagscloud").style.display="none";
+            document.getElementById("textarearesult").style.display="block";
+            document.getElementById("textarearesult").value="<?php echo $ResArray["summaryRes"]; ?>";
+            document.getElementById("textarearesult-mb").value="<?php echo $ResArray["summaryRes"]; ?>";
+            //document.getElementById("nlptool-select-summary").style.background="#5a5a5a";
+            //document.getElementById("nlptool-select-summary-mb").style.background="#5a5a5a";
+            <?php $graph_show_name = "summary"; ?>
+            
+            //document.form1.val.value = "Harvey";
+            //document.form1.submit();
+
+        if (window.XMLHttpRequest)
+          {
+            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+          }
+          else
+          {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xmlhttp.onreadystatechange=function()
+          {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+              document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+            }
+          }
+          var str="XHG";
+          xmlhttp.open("GET","./ajax.php?graph_type="+str,true);
+          xmlhttp.send();
+        }
+        
+        function show_graphRes(){
+            document.getElementById("textarearesult").style.display="none";
+            document.getElementById("tagscloud").style.display="block";
+            //document.getElementById("tagscloud").innerHTML="<?php echo $fenciResStr_Graph;?>";
+        }
+    </script>
+
+
+    <form name="form1"  method="post">
+    <input type="hidden" name="val"  value="">  
+
+    <!-- document.getElementById("textarearesult").value="<?php echo addslashes($fenciResStr);?>"; -->
     <div class="nlptool-result">
         <div class="nlptool-result-left">
-            <a href="#"><div class="nlptool-select">分词标注</div></a>
-            <a href="#"><div class="nlptool-select">词频统计</div></a>
-            <a href="#"><div class="nlptool-select">抽关键词</div></a>
-            <a href="#"><div class="nlptool-select">实体抽取</div></a>
-            <a href="#"><div class="nlptool-select">文本分类</div></a>
-            <a href="#"><div class="nlptool-select">自动文摘</div></a>
+            <div class="nlptool-select" id="nlptool-select-fenci-mb" onclick="show_fenciRes()">分词标注</div>
+            <div class="nlptool-select" id="nlptool-select-freq-mb" onclick="show_()">词频统计</div>
+            <div class="nlptool-select" id="nlptool-select-keywords-mb" onclick="show_keywordsRes()">抽关键词</div>
+            <div class="nlptool-select" id="nlptool-select-shiti-mb" onclick="fun1()">实体抽取</div>
+            <div class="nlptool-select" id="nlptool-select-newwords-mb" onclick="show_newwordsRes()">新词发现</div>
+            <div class="nlptool-select" id="nlptool-select-summary-mb" onclick="show_summaryRes()">自动文摘</div>
         </div>
         <div class="nlptool-result-center">
-            <textarea class="result"  placeholder="NLP处理结果展示" readonly="readonly"><?php
-                    $params = array(
-                        "name" => $_POST["contents"]
-                    );
-                    echo httpPost("http://localhost/split.php", $params);
-                ?></textarea>
+            <div id="tagscloud">
+                <?php
+                    //print $_GET["graph_type"];
+                    //print_r($_GET);
+                    //print $_POST["val"];
+                    //echo $graph_show_name;
+                    //echo "\"+test+\"";
+                    if($graph_show_name == "summary"){
+                        $keywordsResArray = explode('#', $ResArray["keywordsRes"]);
+                        //print_r($keywordsResArray);
+                        $fenciResStr_Graph = "";
+                        for($i = 0; $i < count($keywordsResArray); $i++){
+                            $fenciResStr_Graph  .= "<a  class='tagc" . ($i % 5) . "'>" . $keywordsResArray[$i] ."</a>";
+                        }
+                        echo $fenciResStr_Graph;
+                    }
+                ?>
+            </div>
+
+            <textarea class="result" id="textarearesult" placeholder="NLP处理结果展示" readonly="readonly"><?php echo $fenciResStr; ?></textarea>
         </div>
 
         <div class="nlptool-result-right">
             <div>
-                <a href="#"><div class="showmanner">图表</div></a>
-                <a href="#"><div class="showmanner">文本</div></a>
+                <div class="showmanner" onclick="show_graphRes()">图表</div>
+                <div class="showmanner">文本</div>
             </div>
             <hr width=100% size=1 color=#00ffff style="margin-bottom:5px;FILTER: alpha(opacity=100,finishopacity=0,style=3)">
             <div>
@@ -132,12 +246,12 @@
     </div>
 
     <div class="fenxi-mb">
-        <a href="#"><div class="nlptool-select-mb"><div>分词标注</div></div></a>
-        <a href="#"><div class="nlptool-select-mb"><div>分词标注</div></div></a>
-        <a href="#"><div class="nlptool-select-mb"><div>分词标注</div></div></a>
-        <a href="#"><div class="nlptool-select-mb"><div>分词标注</div></div></a>
-        <a href="#"><div class="nlptool-select-mb"><div>分词标注</div></div></a>
-        <a href="#"><div class="nlptool-select-mb"><div>分词标注</div></div></a>
+        <div class="nlptool-select-mb" id="nlptool-select-fenci"  onclick="show_fenciRes()"><div>分词标注</div></div>
+        <div class="nlptool-select-mb" id="nlptool-select-freq" onclick=""><div>词频统计</div></div>
+        <div class="nlptool-select-mb" id="nlptool-select-keywords" onclick="show_keywordsRes()"><div>抽关键词</div></div>
+        <div class="nlptool-select-mb" id="nlptool-select-shiti" onclick=""><div>实体抽取</div></div>
+        <div class="nlptool-select-mb" id="nlptool-select-newwords" onclick="show_newwordsRes()"><div>新词发现</div></div>
+        <div class="nlptool-select-mb" id="nlptool-select-summary" onclick="show_summaryRes()"><div>自动文摘</div></div>
     </div>
 
     <div class="nlptool-result-mb">
@@ -153,38 +267,38 @@
             </div>
         </div>
         <div class="nlptool-result-mb-buttom">
-             <textarea class="mb-result" placeholder="NLP处理结果展示" readonly="readonly" placeholder="处理结果展示"><?php
-                    $params = array(
-                        "name" => $_POST["contents"]
-                    );
-                    echo httpPost("http://localhost/split.php", $params);
+             <textarea class="mb-result" id="textarearesult-mb" placeholder="NLP处理结果展示" readonly="readonly" placeholder="处理结果展示"><?php
+                    //$params = array(
+                    //    "name" => $_POST["contents"]
+                    //);
+                    //echo httpPost("http://localhost/split.php", $params);
+                    echo $fenciResStr;
              ?></textarea>
         </div>
     </div>
 
 </main>
 
+
 <footer class="panel-footer">
     <br>
-    <a>|中国裁判文书网|</a>
-    <a>任命检察院案件信息公开网|</a><br>
-    <a>|中国审判流程信息公开网|</a>
-    <a>中国执行信息公开网|</a>
-    <a>中国知识产权裁判文书网|</a>
-    <a>中国涉外商事海事审判网|</a>
+    <a target="_blank" href="http://wenshu.court.gov.cn/">|中国裁判文书网|</a>
+    <a target="_blank" href="http://www.ajxxgk.jcy.cn/html/index.html">人民检察院案件信息公开网|</a><br>
+    <a target="_blank" href="http://www.court.gov.cn/zgsplcxxgkw/">|中国审判流程信息公开网|</a>
+    <a target="_blank" href="http://shixin.court.gov.cn/">中国执行信息公开网|</a>
+    <a target="_blank" href="http://ipr.court.gov.cn/">中国知识产权裁判文书网|</a>
+    <a target="_blank" href="http://www.ccmt.org.cn/">中国涉外商事海事审判网|</a>
+
     <p>
         地址：辽宁省沈阳市浑南区南屏东路16号 电话：024-24696180 <br>
-        中国科学院沈阳计算技术研究所 版权所有
+        中国科学院沈阳计算技术研究所 版权所有<br><br>
+        辽ICP备18002117号-1
     </p>
 </footer>
 
-
-<!--<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>-->
-<!--<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>-->
-<!--<script src="http://libs.useso.com/js/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
-
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/xun.js"></script>
 
 
 </body>
