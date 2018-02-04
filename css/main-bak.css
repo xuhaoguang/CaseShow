@@ -1612,7 +1612,6 @@ pre code {
     max-width: 1380px;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 10px;
 }
 .col-lg-1,
 .col-lg-10,
@@ -2028,41 +2027,6 @@ pre code {
     max-height: 180px;
 }
 
-.col-md-3 .sict-logo{
-    height: 220px;
-    /*background: #0f0f0f;*/
-    margin: 0 auto;
-    vertical-align: middle;
-    text-align: center;
-    padding-top: 20px;
-}
-
-.col-md-3 .sict-logo > img{
-    height: 100%;
-}
-
-.col-md-10 .contact-img{
-    width: 100%;
-}
-
-.col-md-10 .contact-img > img{
-    width: 100%;
-}
-
-.col-md-6 .contact-info{
-    font-size: 16px;
-    /*background: #0f0f0f;*/
-    padding-top: 20px;
-    color: #5d5d5d;
-}
-
-.col-md-4 .sict-map{
-    height: 226px;
-    padding-top: 20px;
-    /*background: #c12e2a;*/
-    /*border:#ccc solid 1px;*/
-}
-
 @media (max-width:500px){
     .col-md-6 > div > ul > li > span{
         display: none;
@@ -2106,23 +2070,12 @@ pre code {
 .col-md-6 > div > ul > li > a:hover{
     color: #556fb5;
 }
-
-
-.col-md-7 .sict_intro{
-    /*background: #c12e2a;*/
-    color: #5d5d5d;
-    /*height: 220px;*/
-    font-size: 15px;
-    padding-top: 20px;
-}
-
-
 .main{
     padding-bottom: 20px;
     FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr= #ffffff,
-    endColorStr= #000000); /*IE*/
-    background:-moz-linear-gradient(left,#ffffff,#ebebeb);/*火狐*/
-    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#ffffff), to(#e6e3e3));/*谷歌*/
+    endColorStr= #afafaf); /*IE*/
+    background:-moz-linear-gradient(left,#ffffff,#afafaf);/*火狐*/
+    background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#ffffff), to(#afafaf));/*谷歌*/
 }
 
 @media (min-width:500px){
@@ -4469,7 +4422,7 @@ tbody.collapse.in {
     z-index: 2;
     float: left;
     margin-bottom: 0;
-    height: 220px;
+    height: 160px;
 }
 .input-group .form-control:focus {
     z-index: 3

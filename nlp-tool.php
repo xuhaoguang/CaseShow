@@ -42,19 +42,7 @@
                 <li><a href="#">法律条文</a></li>
                 <li><a href="#">指导案例</a></li>
                 <li class="active"><a href="nlp-tool.php">NLP工具</a></li>
-                <!--<li class="dropdown">-->
-                    <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
-                        <!--NLP工具 <span class="caret"></span>-->
-                    <!--</a>-->
-                    <!--<ul class="dropdown-menu">-->
-                        <!--<li><a href="#">在线分词</a></li>-->
-
-                        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
-                        <!--<li><a href="#">抽关键词</a></li>-->
-
-                    <!--</ul>-->
-                <!--</li>-->
-                <li><a href="#">关于我们</a></li>
+                <li><a href="./about.html">关于我们</a></li>
             </ul>
         </div>
     </div>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CaseShow 法务服务系统</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <style type="text/css">
+        .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+        .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/logo.png" >
+            </a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only"> </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html">首页</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        文书检索 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">语义检索</a></li>
+
+                        <!--<li class="divider"></li>-->
+                        <li><a href="#">案由检索</a></li>
+
+                        <!--<li class="divider"></li>-->
+                        <li><a href="#">法院检索</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">法律条文</a></li>
+                <li><a href="#">指导案例</a></li>
+                <li><a href="nlp-tool.php">NLP工具</a></li>
+                <li class="active" ><a href="#">关于我们</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<main class="main">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+            <div class="sict_intro">
+                <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国科学院沈阳计算技术研究所有限公司（简称“沈阳计算”）是以计算机科学及相关技术为主要研究方向，以高技术创新和产业化为目标的高科技公司。其前身是中国科学院沈阳计算技术研究所，创建于1958年。
+                </p>
+                <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;沈阳计算主要从事计算机系统与软件、网络与通信、数控与先进制造、工业自动控制等技术与产品的研发和产业化，拥有雄厚的技术积累，突破了许多重大关键技术，多项成果达到国际先进水平。先后研制出第一代电子管、第二代晶体管、第三代集成电路计算机；自主研究设计出我国第一台压缩型超级小型计算机、第一台CAD工作站系统；最先实现我国计算机大型系统软件国产化；研究开发出我国第一台高档数控系统；建成我国第一个高档数控国家级工程化研究基地——高档数控国家工程研究中心；取得我国第一个高档数控软件版权；率先实现我国高档数控系统产品出口。
+                </p>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="sict-logo">
+                <img src="img/sict.jpg">
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="contact-img">
+                <img src="img/contact.jpg">
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <div class="contact-info">
+                <p>业务经理：王宁</p>
+                <p>联系电话：024-24696180</p>
+                <p>联系邮箱：wangning@sict.ac.cn</p>
+                <p>通信邮编：110168</p>
+                <p>通信地址：辽宁省沈阳市东陵区南屏东路16号</p>
+                <p>成果展示：辽河流域水环境监测系统<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           辽河流域水环境调度系统<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           辽河流域水环境检测系统
+                </p>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="sict-map">
+                <div style="width:100%;height:226px;border:#ccc solid 1px;" id="dituContent"></div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</main>
+
+
+<footer class="panel-footer">
+    <br>
+    <a target="_blank" href="http://wenshu.court.gov.cn/">|中国裁判文书网|</a>
+    <a target="_blank" href="http://www.ajxxgk.jcy.cn/html/index.html">人民检察院案件信息公开网|</a><br>
+    <a target="_blank" href="http://www.court.gov.cn/zgsplcxxgkw/">|中国审判流程信息公开网|</a>
+    <a target="_blank" href="http://shixin.court.gov.cn/">中国执行信息公开网|</a>
+    <a target="_blank" href="http://ipr.court.gov.cn/">中国知识产权裁判文书网|</a>
+    <a target="_blank" href="http://www.ccmt.org.cn/">中国涉外商事海事审判网|</a>
+    <p>
+        地址：辽宁省沈阳市浑南区南屏东路16号 电话：024-24696180 <br>
+        中国科学院沈阳计算技术研究所 版权所有<br><br>
+        辽ICP备18002117号-1
+    </p>
+</footer>
+
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+    }
+
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(123.553421,41.749558);//定义一个中心点坐标
+        map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.disableDoubleClickZoom();//禁用鼠标双击放大
+        map.disableKeyboard();//禁用键盘上下左右键移动地图，默认禁用(可不写)
+    }
+
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+        var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_ZOOM});
+        map.addControl(ctrl_nav);
+    }
+
+
+    initMap();//创建和初始化地图
+</script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
