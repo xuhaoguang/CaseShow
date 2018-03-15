@@ -224,10 +224,21 @@
             </div>
             <hr width=100% size=1 color=#00ffff style="margin-bottom:5px;FILTER: alpha(opacity=100,finishopacity=0,style=3)">
             <div>
-                <label>分词标注</label>
+               <label>分词标注</label>
                 <p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分词标注是基于模糊神经算法算法分词标注是基于模糊神经算法算法分词标注是基于模糊神经算法算法分词标注是基于模糊神经算法算法，
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分词标注是基于NLPIR的分词组件开发完成的，是对输入的文本进行快速分词处理，同时对每个词语都会标注其词性，单词标注结果之间用空格隔开，单词与词性之间用/分隔。
                 </p>
+<!--                <label>关键词抽取</label>
+                <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关键词抽取是基于NLPIR的keywords组件开发完成的，是对输入的文本进行分析后，抽取能到表文本总体意思的关键词序列，每个关键之间使用空格分隔。
+                </p>
+-->
+<!--                <label>自动文摘</label>
+                <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自动文摘是基于NLPIR的summarys组件开发完成的，是对输入的文本进行分析理解后，对文本进行摘要描述，通过精简的摘要描述语言来表示输入的全文信息。
+                </p>
+-->
+
             </div>
 
         </div>

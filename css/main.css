@@ -2219,6 +2219,153 @@ pre code {
 
 
 
+
+
+
+.search-left{
+    height: 560px;
+    border: 1px solid rgba(107, 107, 107, 0.33);
+    border-radius: 2%;
+    -moz-border-radius: 2%;
+    -webkit-border-radius: 2%;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.search-left .search-left-label{
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 3%;
+}
+
+.search-left >form >textarea{
+    width: 94%;
+    height: 250px;
+    margin-left: 3%;
+    border: 1px solid rgba(107, 107, 107, 0.33);
+}
+
+.search-left .submit{
+    background-color: #7c91ca;
+    color: #FFFFFF;
+    margin-left: 2%;
+    width: 94%;
+    height: 40px;
+    font-size: 16px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+.selectpicker{
+    width                    : 94%;
+    height                   : 25px;
+    margin-left: 3%;
+    margin-bottom: 20px;
+    line-height              : 20px;
+    /*text-indent              : 4pt;*/
+    text-align               : left;
+    vertical-align           : middle;
+    border                   : 1px solid #94c1e7;
+    -moz-border-radius       : 6px;
+    -webkit-border-radius    : 6px;
+    border-radius            : 6px;
+    font-size                : 11pt;
+    font-weight              : 300;
+    cursor                   : pointer;
+    outline                  : none;
+}
+
+.search-left .result{
+    margin-top: 30px;
+    width: 94%;
+    margin-left: 3%;
+    /*border: 2px dashed #94c1e7;*/
+}
+
+.search-left .result .result-1{
+    font-size: 15px;
+    text-align: center;
+    color: #e76359;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(118, 102, 164, 0.13);
+}
+
+.search-left .result .result-2{
+    display: inline;
+    float: left;
+    width: 50%;
+    background-color: rgba(118, 102, 164, 0.13);
+}
+
+.search-left .result .result-2 .result-3{
+    text-align: right;
+    padding-bottom: 5px;
+}
+
+.search-left .result .result-2 .result-4{
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+.search-right{
+    overflow-y: auto;
+    border: 1px solid rgba(107, 107, 107, 0.33);
+    border-radius: 2%;
+    -moz-border-radius: 2%;
+    -webkit-border-radius: 2%;
+    margin-bottom: 20px;
+    display: block;
+}
+
+
+.search-right .wenshu-title > a{
+    color: #556fb5;
+    font-size: 17px;
+    padding-left: 8px;
+    padding-bottom: 5px;
+}
+
+.search-right .wenshu-court{
+    font-size: 15px;
+    display: inline;
+    float: left;
+    padding-left: 8px;
+}
+
+.search-right .wenshu-time{
+    font-size: 15px;
+    display: inline;
+    float: left;
+    padding-left: 10px;
+}
+
+.search-right .wenshu-similarity{
+    font-size: 15px;
+    color: #e76359;
+    display: inline;
+    float: right;
+    padding-right: 8px;
+}
+
+
+.search-right .wenshu-hr{
+    width: 97%;
+    /*margin-top: 30px;*/
+    border-bottom: 1px dashed #a0a0a0;
+}
+
+.search-right .wenshu-reason{
+    margin-top: -15px;
+    padding-left: 10px;
+}
+
+.search-right .wenshu-reason-info{
+    padding-left: 10px;
+    padding-bottom: 25px;
+}
+
 @media (min-width:800px) {
     .col-md-1,
     .col-md-10,
@@ -2250,7 +2397,7 @@ pre code {
         width: 66.66666667%
     }
     .col-md-7 {
-        width: 58.33333333%
+        width: 56%
     }
     .col-md-6 {
         width: 50%;
@@ -4131,6 +4278,77 @@ tbody.collapse.in {
 }
 
 
+
+.wenshu{
+    background-color: #F16E50;
+    border: 10px;
+}
+
+.wenshu-info{
+    /*background-color: #2aabd2;*/
+    margin-right: -70px;
+}
+
+.wenshu-info .wenshu-title{
+    font-size: 16px;
+    color: #696969;
+    text-align: center;
+}
+
+.wenshu-info .wenshu-from{
+    font-size: 14px;
+    color: #696969;
+    text-align: center;
+    padding-top: 3px;
+}
+
+.wenshu-info .wenshu-time{
+    font-size: 14px;
+    color: #696969;
+    float: right;
+    padding-top: 3px;
+    display: inline;
+    padding-right: 30px;
+
+}
+
+.wenshu-info .wenshu-download-img{
+    display: inline;
+    float: right;
+    /*padding-right: 0px;*/
+
+}
+.wenshu-info .wenshu-print-img{
+    display: inline;
+    float: right;
+    padding-right: 15px;
+}
+
+.wenshu-info .wenshu-hr{
+    width: 100%;
+    /*margin-top: 30px;*/
+    border-bottom: 1px dashed #a0a0a0;
+}
+
+.wenshu-info .wenshu-title-2{
+    font-size: 20px;
+    color: #696969;
+    text-align: center;
+}
+
+.wenshu-info .wenshu-number{
+    font-size: 14px;
+    color: #696969;
+    text-align: right;
+}
+
+.wenshu-info .wenshu-content{
+    font-size: 17px;
+    color: #696969;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 @media (min-width:500px) {
     .fenxi-circle{
         width: 100px;
@@ -5412,24 +5630,27 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
     color: #777
 }
 .pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 20px 0;
+    display: inline;
+    float: right;
     border-radius: 4px
 }
 .pagination > li {
-    display: inline
+    display: inline-block;
+    font-size: 14px;
 }
 .pagination > li > a,
 .pagination > li > span {
+    width: auto;
     position: relative;
     float: left;
-    padding: 6px 12px;
-    margin-left: -1px;
+    /*padding: 0px 0px;*/
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -20px;
     line-height: 1.42857143;
-    color: #337ab7;
+    color: #fff;
     text-decoration: none;
-    background-color: #fff;
+    background-color: #7c91aa;
     border: 1px solid #ddd
 }
 .pagination > li:first-child > a,
