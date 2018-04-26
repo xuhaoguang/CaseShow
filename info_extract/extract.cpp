@@ -1,72 +1,62 @@
 /*
- * File Name: split.cpp
+ * File Name: extract.cpp
  * Author: xuhaoguang (hgxu1993@163.com)
- * Created Time: Fri Dec 22 14:45:12 2017
+ * Created Time: Wed Apr 25 19:48:30 2018
  * copyright (c) 2017 for xuhaoguang. All Right Reserved
  * @brief: 
 */ 
-
-#include <iostream>
-#include <fstream>
-#include <string.h>
+#include "extract.h"
 #include <string>
-#include <set>
-#include "NLPIR.h"
 
-using namespace std;
+namespace caseshow{
 
-//停用词表和白名单的存储滤路径
-const string stop_words_path = "/www/web/default/info_extract/stop_words";
-const string white_words_path = "/www/web/default/info_extract/white_words";
-
-set<string> split_words; //用于记录分词结果
-set<string> stop_words;  //停用词表
-set<string> white_words; //白名单表
-set<string>::iterator iter; //迭代器
-
-void load_pass_words(set<string>& myset, const string path)
+//@brief 导入过滤关键词
+//@param [in]  path : 过滤词汇文本路径
+//       [out] myset: 过滤词汇内存镜像
+//@return void
+//@retval
+void Extractor::load_pass_words(std::set<std::string>& myset, const std::string& path)
 {
-    ifstream fin(path.c_str());
-    string s;  
+    std::ifstream fin(path.c_str());
+    std::string s;  
     while(getline(fin,s))
     {    
         myset.insert(s);
-        //cout << s.c_str() << endl;
     }
     fin.close();
 }
 
-bool contain_num_alpha(string str)    
-{    
-    //cout << endl <<endl;
-    //cout << str << "\t";
+//@brief 判断关键是否包含特殊字眼
+//@param [in]  path : 关键词
+//@return bool
+//@retval true: 关键词包含特殊词汇  false: 关键词不包含特殊词汇
+bool Extractor::contain_special_words(std::string str){
+    //判断关键词是否包括ascii码在0-127中，关键词应排除这种词汇
+    //如1993这种年份词汇 或者 book这种英文词汇
     for (int i = 0; i < str.size(); i++)  
     { 
         int tmp = (int)str[i];  
-        //cout << tmp << "\t";
         if (tmp >= 0 && tmp <= 127)
         {  
             return true;
         }  
     }   
-    return false;  
-}  
 
-bool contain_special_words(string str){
-    if(    str.find("年") < str.length() 
-        || str.find("月") < str.length() 
-        || str.find("日") < str.length() 
-        || str.find("第") < str.length() 
-        || str.find("省") < str.length() 
-        || str.find("市") < str.length() 
-        || str.find("县") < str.length() 
-        || str.find("村") < str.length() 
-        || str.find("乡") < str.length() 
-        || str.find("区") < str.length() 
-        || str.find("某") < str.length() 
-        || str.find("Ｘ") < str.length() 
-        || str.find("×")  < str.length() 
-        || str.find("审") < str.length()
+    //判断关键词是否包含一些特殊汉字，包括这种汉字的关键词一般没有重要价值
+    if(    str.find("年") < str.length() //如1949年
+        || str.find("月") < str.length() //如五月
+        || str.find("日") < str.length() //如12日
+        || str.find("第") < str.length() //如第十五号
+        || str.find("省") < str.length() //如安徽省
+        || str.find("市") < str.length() //如安庆市
+        || str.find("县") < str.length() //如龙头县
+        || str.find("村") < str.length() //如名山村
+        || str.find("乡") < str.length() //如大坝乡
+        || str.find("区") < str.length() //如朝阳区
+        || str.find("某") < str.length() //如赵某
+        || str.find("Ｘ") < str.length() //如赵XX
+        || str.find("×")  < str.length() //如赵xx
+        || str.find("审") < str.length() //如一审
         || str.find("一") < str.length()
         || str.find("二") < str.length()
         || str.find("三") < str.length()
@@ -81,31 +71,28 @@ bool contain_special_words(string str){
         || str.find("千") < str.length()
         || str.find("万") < str.length()
         || str.find("亿") < str.length()
-        || str.find("者") < str.length()
+        || str.find("者") < str.length() //如目击者
+        || str.find("#") < str.length()
       ){
         return true;
     } 
 
     return false;
 } 
-int main(int argc, char** argv){
+
+//@brief 文本内容关键词抽取
+//@param [in]  contents: 文本内容
+//@return string
+//@retval 关键词信息，单词:词频_词序#单词:词频_词序   
+std::string Extractor::extract(std::string& contents){
     //加载停用词表到内存
     load_pass_words(stop_words, stop_words_path);
+    
     //加载白名单到内存
     load_pass_words(white_words, white_words_path);
 
-    //cout << stop_words.size() << endl;
-    //cout << white_words.size() << endl;
-
-    //for(iter = white_words.begin(); iter != white_words.end(); iter++){
-    //    cout << *iter << endl;
-    //} 
-    
-    string contents = string(argv[1]);
-
     if(!NLPIR_Init("", UTF8_CODE, "0")){ //the 2nd para means UTF-8 encoding 
-        cout <<  "Sorry, NLP工具初始化失败" << endl;
-        return -1;
+        return  "Sorry, NLP工具初始化失败";
     }
     
     int nCount; //the count of split words
@@ -114,7 +101,8 @@ int main(int argc, char** argv){
     const result_t* pResult = NLPIR_ParagraphProcessA(contents.c_str(), &nCount);
 	char *sWhichDic;
 	char sWord[100];
-    string wordstype;
+    std::string wordstype;
+    int word_order = 1;
 
 	for(int i=0; i<nCount; i++){
         strncpy(sWord, contents.c_str() + pResult[i].start, pResult[i].length);
@@ -122,22 +110,33 @@ int main(int argc, char** argv){
        
         //过滤停用词表和白名单
         if( pResult[i].length > 3 //词语只有一个字
-            && !contain_num_alpha(sWord) //词语全部是数字情况
-            && !contain_special_words(sWord) //词语是否是年月日
+            && !contain_special_words(sWord) //词语是否含有特殊字眼
             && (iter = stop_words.find(sWord)) == stop_words.end() //过滤停用词表
             && (iter = white_words.find(sWord)) == white_words.end() //过滤白名单
           )
         {
-            //cout << pResult[i].length << "\n" <<sWord << endl;
-            //cout <<sWord <<  endl;
-            split_words.insert(sWord); //存储分词结果
+            iter1 = split_words_freq.find(sWord);
+            if(iter1 != split_words_freq.end()){
+                split_words_freq[sWord] += 1;
+            }else{
+                split_words_freq[sWord] = 1;
+            } 
+                
+            split_words_order[sWord] = word_order++;
         } 
 	}
     
-    for(iter = split_words.begin(); iter != split_words.end(); iter++){
-        cout << *iter << endl;
+    std::string keywords_res = ""; //返回到数据库中的关键词抽取信息
+    std::string tmp_str;
+    
+    //note: to_string是C++11的库，编译时应加上-std=c++11
+    for(iter1 = split_words_freq.begin(); iter1 != split_words_freq.end(); iter1++){
+        tmp_str = iter1->first + ":" + std::to_string(iter1->second) + "_" + std::to_string(split_words_order[iter1->first]) + "#";
+        keywords_res += tmp_str;
     }
-    cout << endl << "=================" << endl;
+
     NLPIR_Exit();
-    return 0;
-} 
+    return keywords_res;
+}
+
+}
