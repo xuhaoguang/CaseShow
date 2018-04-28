@@ -16,8 +16,8 @@ namespace caseshow{
 //@param [in] str: 待分割的字符串
 //       [in] sep: 分隔符
 //       [out]  v: 存放分割结果的向量
-//return void
-//retval
+//@return void
+//@retval
 void SimCalc::split_string(const std::string& str, std::vector<std::string>& v, const std::string& sep){
     std::string::size_type pos1, pos2;
     pos2 = str.find(sep);
@@ -36,8 +36,8 @@ void SimCalc::split_string(const std::string& str, std::vector<std::string>& v, 
 
 //@brief 工具类：打印向量
 //@param [in] v: 待打印的向量
-//return void
-//retval
+//@return void
+//@retval
 void SimCalc::print_vector(std::vector<int>& v){
     for(size_t i = 0; i < v.size(); i++){
         std::cout << v[i] << "\t";
@@ -48,8 +48,8 @@ void SimCalc::print_vector(std::vector<int>& v){
 
 //@brief 工具类：打印set集合
 //@daaram [in] s: 待打印的seT集
-//return void
-//retval
+//@return void
+//@retval
 void SimCalc::print_set(std::set<std::string>& s){
     std::set<std::string>::iterator iter;
     for(iter = s.begin(); iter != s.end(); iter++){
@@ -60,8 +60,8 @@ void SimCalc::print_set(std::set<std::string>& s){
 
 //@brief 工具类：打印map集合
 //@param [in] m: 待打印的map集合
-//return void
-//retval
+//@return void
+//@retval
 void SimCalc::print_map(std::map<std::string, int>& m){
     std::map<std::string, int>::iterator iter;
     for(iter = m.begin(); iter != m.end(); iter++){
@@ -76,9 +76,9 @@ void SimCalc::print_map(std::map<std::string, int>& m){
 //       [out] join_str1_order: 字符串1中相交关键词的词序向量
 //       [out] join_str2_freq: 字符串2中相交关键词的词频向量
 //       [out] join_str2_order: 字符串2中相交关键词的词序向量
-//return void
-//retval
-void SimCalc::get_freq_order_vector(std::string& str1, std::string& str2, std::vector<int>& join_str1_freq, std::vector<int>& join_str1_order, std::vector<int>& join_str2_freq, std::vector<int>& join_str2_order){
+//@return void
+//@retval
+void SimCalc::get_freq_order_vector(std::string& str1, std::string& str2, std::vector<int>& join_str1_freq, std::vector<int>& join_str1_order, std::vector<int>& join_str2_freq, std::vector<int>& join_str2_order, int& str1_max_pos, int& str2_max_pos){
     std::set<std::string> str1_words; //记录字符串1中的关键词
     std::set<std::string> join_words; //记录两个字符串的相交词汇
     std::set<std::string>::iterator iter; 
@@ -107,6 +107,7 @@ void SimCalc::get_freq_order_vector(std::string& str1, std::string& str2, std::v
         std::stringstream stream2(tmp2[1]);
         stream2 >> order;  
 
+        str1_max_pos = (order > str1_max_pos ? order : str1_max_pos);
         str1_words.insert(tmp1[0]);
         str1_freq[tmp1[0]] = freq;
         str1_order[tmp1[0]] = order;
@@ -130,6 +131,7 @@ void SimCalc::get_freq_order_vector(std::string& str1, std::string& str2, std::v
         std::stringstream stream2(tmp2[1]);
         stream2 >> order;  
 
+        str2_max_pos = (order > str2_max_pos ? order : str2_max_pos);
         str2_freq[tmp1[0]] = freq;
         str2_order[tmp1[0]] = order;
 
@@ -151,8 +153,8 @@ void SimCalc::get_freq_order_vector(std::string& str1, std::string& str2, std::v
 //@brief 计算两个向量之间的夹角余弦值VSM
 //@param [in] v1: 向量1
 //       [in] v2: 向量2 
-//return float
-//retval 两个向量之间的余弦值
+//@return float
+//@retval 两个向量之间的余弦值
 float SimCalc::vsm_res(std::vector<int> v1, std::vector<int> v2){
     int fenzi = 0;
     double fenmu1 = 0.0;
@@ -170,11 +172,56 @@ float SimCalc::vsm_res(std::vector<int> v1, std::vector<int> v2){
 //@brief 计算两个向量之间的词频相似度
 //@param [in] v1: 向量1
 //       [in] v2: 向量2 
-//return float
-//retval 两个向量之间的词频相似度
+//@return float
+//@retval 两个向量之间的词频相似度
 float SimCalc::sim_freq(std::vector<int> v1, std::vector<int> v2){
     return vsm_res(v1, v2);
 }
 
+//@brief 计算向量的逆序数
+//@param [in] v: 向量
+//@return int
+//@retval 向量的逆序数
+int SimCalc::get_inv_num(std::vector<int> v){
+    int inv_num = 0;
+    
+    for(int i = 0; i < v.size(); i++){
+        for(int j = i+1; j < v.size(); j++){
+            if(v[j] < v[i]){ //逆序数的定义
+                inv_num++;
+            } 
+        } 
+    }
+
+    return inv_num;
+} 
+
+//@brief 计算两个向量之间的词序相似度
+//@param [in] v1: 向量1
+//       [in] v2: 向量2 
+//       [in] l1: 向量1中关键词的最大绝对位置
+//       [in] l2: 向量2中关键词的最大绝对位置
+//@return float
+//retval 两个向量之间的词序相似度
+float SimCalc::sim_order(std::vector<int> v1, std::vector<int> v2, int l1, int l2){
+    //求向量的逆序数
+    int inv_num1 = get_inv_num(v1) ;
+    int inv_num2 = get_inv_num(v2) ;
+
+    float r1 = abs(inv_num1 - inv_num2) * 1.0 / (v1.size() * v1.size());
+
+    //求两个向量之间的绝对次序之差的和
+    int pos_gap_sum = 0;
+    for(int i = 0; i < v1.size(); i++){
+        int tmp = abs(v1[i] - v2[i]);
+        pos_gap_sum += tmp;
+    } 
+    
+    //求两个向量的最大次序
+    int max_gap = (l1 > l2 ? l1 : l2);
+    float r2 = pos_gap_sum * 1.0 / (v1.size() * max_gap);
+    
+    return (1 - r1) * (1 - r2);
+}
 
 }
