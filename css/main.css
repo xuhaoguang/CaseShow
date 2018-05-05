@@ -2311,10 +2311,10 @@ pre code {
 
 .search-right{
     overflow-y: auto;
-    border: 1px solid rgba(107, 107, 107, 0.33);
-    border-radius: 2%;
-    -moz-border-radius: 2%;
-    -webkit-border-radius: 2%;
+    //border: 1px solid rgba(107, 107, 107, 0.33);
+    //border-radius: 2%;
+    //-moz-border-radius: 2%;
+    //-webkit-border-radius: 2%;
     margin-bottom: 20px;
     display: block;
 }
@@ -2323,7 +2323,7 @@ pre code {
 .search-right .wenshu-title > a{
     color: #556fb5;
     font-size: 17px;
-    padding-left: 8px;
+    //padding-left: 8px;
     padding-bottom: 5px;
 }
 
@@ -2331,7 +2331,7 @@ pre code {
     font-size: 15px;
     display: inline;
     float: left;
-    padding-left: 8px;
+    //padding-left: 8px;
 }
 
 .search-right .wenshu-time{
@@ -2346,23 +2346,23 @@ pre code {
     color: #e76359;
     display: inline;
     float: right;
-    padding-right: 8px;
+    padding-right: 18px;
 }
 
 
 .search-right .wenshu-hr{
-    width: 97%;
+    width: 100%;
     /*margin-top: 30px;*/
     border-bottom: 1px dashed #a0a0a0;
 }
 
 .search-right .wenshu-reason{
     margin-top: -15px;
-    padding-left: 10px;
+    //padding-left: 10px;
 }
 
 .search-right .wenshu-reason-info{
-    padding-left: 10px;
+    //padding-left: 10px;
     padding-bottom: 25px;
 }
 
@@ -4286,7 +4286,7 @@ tbody.collapse.in {
 
 .wenshu-info{
     /*background-color: #2aabd2;*/
-    margin-right: -70px;
+    margin-right: 0px;
 }
 
 .wenshu-info .wenshu-title{
@@ -4312,13 +4312,13 @@ tbody.collapse.in {
 
 }
 
-.wenshu-info .wenshu-download-img{
+.wenshu-download-img{
     display: inline;
     float: right;
     /*padding-right: 0px;*/
 
 }
-.wenshu-info .wenshu-print-img{
+.wenshu-print-img{
     display: inline;
     float: right;
     padding-right: 15px;
@@ -4345,8 +4345,8 @@ tbody.collapse.in {
 .wenshu-info .wenshu-content{
     font-size: 17px;
     color: #696969;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 @media (min-width:500px) {

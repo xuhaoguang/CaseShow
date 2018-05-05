@@ -29,9 +29,10 @@ int main(int argc, char** argv){
     //sim1.print_vector(join_str1_order);
     //sim1.print_vector(join_str2_order);
     
-    std::cout << str1_max_pos << "\t" << str2_max_pos << std::endl;
-    std::cout << "词频相似度为：" << sim1.sim_freq(join_str1_freq, join_str2_freq) << std::endl;
-    std::cout << "词序相似度为：" << sim1.sim_order(join_str1_order, join_str2_order, str1_max_pos, str2_max_pos) << std::endl;
+    //std::cout << str1_max_pos << "\t" << str2_max_pos << std::endl;
+    //std::cout << "词频相似度为：" << sim1.sim_freq(join_str1_freq, join_str2_freq) << std::endl;
+    //std::cout << "词序相似度为：" << sim1.sim_order(join_str1_order, join_str2_order, str1_max_pos, str2_max_pos) << std::endl;
+    std::cout << 0.6 * sim1.sim_freq(join_str1_freq, join_str2_freq) + 0.4 * sim1.sim_order(join_str1_order, join_str2_order, str1_max_pos, str2_max_pos);
 
     return 0;
 } 

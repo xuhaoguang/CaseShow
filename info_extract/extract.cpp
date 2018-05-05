@@ -109,7 +109,7 @@ std::string Extractor::extract(std::string& contents){
 		sWord[pResult[i].length] = 0;
        
         //过滤停用词表和白名单
-        if( pResult[i].length > 3 //词语只有一个字
+        if( pResult[i].length > 4 //词语只有一个字
             && !contain_special_words(sWord) //词语是否含有特殊字眼
             && (iter = stop_words.find(sWord)) == stop_words.end() //过滤停用词表
             && (iter = white_words.find(sWord)) == white_words.end() //过滤白名单

@@ -13,6 +13,6 @@ using namespace caseshow;
 int main(int argc, char** argv){
     Extractor robot;
     std::string contents = std::string(argv[1]);
-    std::cout << robot.extract(contents) << std::endl; 
+    std::cout << robot.extract(contents); 
     return 0;
 } 

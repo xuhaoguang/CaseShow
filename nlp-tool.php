@@ -94,7 +94,7 @@
             "name" => $_POST["contents"]
         );
     
-        $ResArray = json_decode(httpPost("http://localhost/split.php", $params), true);
+        $ResArray = json_decode(httpPost("http://localhost/deal_nlp_tool.php", $params), true);
         //echo httpPost("http://localhost/split.php", $params);
         //print_r($ResArray);
 

@@ -50,25 +50,58 @@
 
         <div class="col-md-3">
             <div class="search-left">
-                <form>
+                <form method="post">
                     <div class="search-left-label">案件类型</div>
 
-                    <select class="selectpicker">
-                        <option value="volvo">婚姻家庭纠纷</option>
-                        <option value="saab">劳动争议纠纷</option>
-                        <option value="opel">公司财产纠纷</option>
-                        <option value="audi">公共安全纠纷</option>
+                    <select name="wenshu_type" class="selectpicker">
+                        <option value="婚姻家庭纠纷" <?php if($_POST["wenshu_type"] == "婚姻家庭纠纷") echo "selected = selected" ?> >婚姻家庭纠纷</option>
+                        <option value="财产经济纠纷" <?php if($_POST["wenshu_type"] == "财产经济纠纷") echo "selected = selected" ?>>财产经济纠纷</option>
+                        <option value="劳动争议纠纷" <?php if($_POST["wenshu_type"] == "劳动争议纠纷") echo "selected = selected" ?>>劳动争议纠纷</option>
+                        <option value="公共安全纠纷" <?php if($_POST["wenshu_type"] == "公共安全纠纷") echo "selected = selected" ?>>公共安全纠纷</option>
                     </select>
 
                     <div class="search-left-label">案情描述</div>
 
-                    <textarea  placeholder="请输入用户个人案情" name="contents"></textarea>
+                    <textarea  placeholder="请输入用户个人案情" name="wenshu_contents"><?php echo $_POST["wenshu_contents"]; ?></textarea>
 
                     <input type="submit" class="submit" value="查找相似案例">
                 </form>
+<?php
+    function httpPost($url,$params){
+        $postData = '';
+        //create name value pairs seperated by &
+        foreach($params as $k => $v) { 
+            $postData .= $k . '='.$v.'&'; 
+        }
+        $postData = rtrim($postData, '&');
+      
+        $ch = curl_init();  
+      
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch,CURLOPT_HEADER, false); 
+        curl_setopt($ch, CURLOPT_POST, count($postData));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);    
+      
+        $output=curl_exec($ch);
+      
+        curl_close($ch);
+        return $output;     
+    }
+
+    $params = array(
+            "wenshu_type" => $_POST["wenshu_type"],
+            "wenshu_contents" => $_POST["wenshu_contents"]
+    );
+
+    //print_r($params);
+    $Res = json_decode(httpPost("http://localhost/deal_search.php", $params), true);
+    //print_r($Res);
+    //echo httpPost("http://localhost/deal_search.php", $params);
+?>
 
                     <div class="result">
-                        <div class="result-1">查找结果</div>
+                    <div class="result-1">查找结果</div>
                         <div>
                             <div class="result-2">
                                 <div class="result-3">相似案例：</div>
@@ -89,63 +122,27 @@
         <!--本人经人介绍与现任丈夫相识，交往不久后在深圳市福田区民政局登记结婚。因性格不合，双方经常争吵。不但如此，丈夫的人品存在极大问题：说谎、不尊重长辈、时常侮辱诽谤本人。2013年8月下旬，双方因感情不和正式分居，在此后的短信沟通中，丈夫也认为这场婚姻名存实亡-->
         <div class="col-md-7">
             <div class="search-right">
-                <div class="wenshu-title"><a href="wenshu-info.php" target="_blank">史某与谷某甲离婚纠纷一审民事判决书</a></div>
-                <div>
-                    <div class="wenshu-court">宿州市埇桥区人民法院</div>
-                    <div class="wenshu-time">2015-09-25</div>
-                    <div class="wenshu-similarity">相似度：0.91</div>
-                </div>
-
-                <hr class="wenshu-hr">
-                <div class="wenshu-reason">[裁判理由]</div>
-                <div class="wenshu-reason-info">
-                    本院认为，原、被告经婚姻登记机关登记结婚，其婚姻关系合法有效。在共同生活期间，原、被告的夫妻感情尚可，生育一子。原告称被告自私、暴躁，处事易走极端。2014年12月26日开始，原告通过被告的手机才发现被告与异性有暧昧关系且已...
-                </div>
-
-
-                <div class="wenshu-title"><a>原告梁某某与被告刘某某离婚纠纷一审民事判决书</a></div>
-                <div>
-                    <div class="wenshu-court">永新县人民法院</div>
-                    <div class="wenshu-time">2015-12-21</div>
-                    <div class="wenshu-similarity">相似度：0.88</div>
-                </div>
-
-                <hr class="wenshu-hr">
-                <div class="wenshu-reason">[裁判理由]</div>
-                <div class="wenshu-reason-info">
-                    本院认为，证据1不能反映被告使用暴力、胁迫等手段带走原告，结合被告的质证意见，可以反映双方就是否继续共同生活进行协商，但未果，故对证据1的拟证目的不予采信。证据2、3，被告未提出异议，本院予以确认。,被告刘某某辩称，被告...
-                </div>
-
-
-                <div class="wenshu-title">徐某与覃某离婚纠纷一审民事判决书</div>
-                <div>
-                    <div class="wenshu-court">山西省方山县人民法院</div>
-                    <div class="wenshu-time">2016-09-05</div>
-                    <div class="wenshu-similarity">相似度：0.83</div>
-                </div>
-
-                <hr class="wenshu-hr">
-                <div class="wenshu-reason">[裁判理由]</div>
-                <div class="wenshu-reason-info">
-                    本院认为，被告覃某与原告徐某均系再婚，婚姻存续期间不到一年，且因琐事闹到派出所，感情淡薄，被告覃某自2013年5月12日外出至今无音讯，婚姻名存实亡。故对原告徐某的离婚请求，本院予以支持。原、被告双方如果有财产纠纷，可另案...
-                </div>
-
-                <div class="wenshu-title">潘某甲与李某某离婚纠纷一审民事判决书</div>
-                <div>
-                    <div class="wenshu-court">四川省梓潼县人民法院</div>
-                    <div class="wenshu-time">2017-01-14</div>
-                    <div class="wenshu-similarity">相似度：0.79</div>
-                </div>
-
-                <hr class="wenshu-hr">
-                <div class="wenshu-reason">[裁判理由]</div>
-                <div class="wenshu-reason-info">
-                    本院认为：原、被告婚前相识时间较短，便仓促结婚，彼此性格了解较少，在婚后生活中，双方又长期在外务工，造成夫妻分居时间较长，感情交流较少。节假日相聚时，夫妻间又常发生争吵，给子女身心造成伤害。原告在短时间内又再次起诉离婚...
-                </div>
-
-
+            <?php
+                $arrlength=count($Res);
+                for($i=0; $i<$arrlength; $i++){
+                    echo '<div class="wenshu-title"><a href="wenshu_pdf/' . $Res[$i]["docid"] .'.pdf" target="_blank">' .$Res[$i]["name"] .'</a></div>';
+                    echo '<div>';
+                        echo '<div class="wenshu-court">' . $Res[$i]["court"] .'</div>';
+                        echo '<div class="wenshu-time">'. $Res[$i]["date"] .'</div>';
+                        echo '<div class="wenshu-download-img"> <a href="wenshu_doc/' . $Res[$i]["docid"] .'.doc"><img src="img/download_small.png"/></a></div>';
+                        echo '<div class="wenshu-similarity"> 相似度:' . $Res[$i]["score"] .'</div>';
+                    echo '</div>';
+                    echo '<hr class="wenshu-hr">';
+                    echo '<div class="wenshu-reason">[裁判理由]</div>';
+                    echo '<div class="wenshu-reason-info">';
+                    #echo $Res[$i]["name"] . $Res[$i]["name"] . $Res[$i]["name"]  . $Res[$i]["name"]; 
+                    echo $Res[$i]["user_contents"];
+                    echo '</div>';
+                } 
+            ?>
 
                 <!--<div style="width: 100%; background-color: aqua">-->
+                <!--    
                     <ul class="pagination">
                         <li>
                             <a href="#">上一页</a>
@@ -169,9 +166,8 @@
                             <a href="#">下一页</a>
                         </li>
                     </ul>
-
-            </div>
-
+                -->
+                
         </div>
         <div class="col-md-1"></div>
     </div>
@@ -190,6 +186,7 @@
         中国科学院沈阳计算技术研究所 版权所有<br><br>
         辽ICP备18002117号-1
     </p>
+
 </footer>
 
 <script src="js/jquery.min.js"></script>
